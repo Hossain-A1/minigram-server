@@ -8,7 +8,7 @@ const getPosts = async(req,res)=>{
   res.status(200).json(data)
 }
 
-
+// post a task
 const PostsData =async (req,res)=>{
 try {
   const {title} = req.body
@@ -21,8 +21,26 @@ try {
 }
 }
 
+// delete post
+
+const deletePost = async(req,res)=>{
+  try{
+    const {id} = req.params
+    
+const post = await Post.findOneAndDelete({
+_id:id
+})
+
+res.status(200).json(post)
+  
+  }catch(err){
+    res.status(400).json({error:err.message})
+
+  }
+}
 
 module.exports = {
   getPosts,
-  PostsData
+  PostsData,
+  deletePost
 }
